@@ -1,18 +1,18 @@
-## Chapter 5: Base classes for managing x86 architecture
+## 章节五 管理X86体系的基本类
 
-Now that we know how to compile our C++ kernel and boot the binary using GRUB, we can start to do some cool things in C/C++.
+我们已经知道怎样编译C++内核并通过GRUB启动该二进制文件，我们能够用C/C++做一些酷的事儿了。
 
-#### Printing to the screen console
+#### 输出到屏幕控制台
 
-We are going to use VGA default mode (03h) to display some text to the user. The screen can be directly accessed using the video memory at 0xB8000. The screen resolution is 80x25 and each character on the screen is defined by 2 bytes: one for the character code, and one for the style flag. This means that the total size of the video memory is 4000B (80B*25B*2B).
+我们继续使用 `VGA` 默认模式（03h) 来对用户显示一些文本。屏幕可以通过起始地址为0xB8000的Video Memory（显存)直接访问，屏幕分辨率是80*25，每个字符在屏幕上被定义为2个字节：一个是字符码，另一个是属性字节（描述了字符的表现形式，包括了字符颜色等属性）。这些意味着显存总大小为 4000B （80B * 25B * 2B）。
 
-In the IO class ([io.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc)),:
-* **x,y**: define the cursor position on the screen
-* **real_screen**: define the  video memory pointer
-* **putc(char c)**: print a unique character on the screen and manage cursor position
-* **printf(char* s, ...)**: print a string
+在`IO`类([io.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc))中：
+* **x,y**: 定义光标的位置 
+* **real_screen**: 定义显存指针
+* **putc(char c)**: 输出一个单独的字符到屏幕上并管理光标的位置。
+* **printf(char* s, ...)**: 输出字符串
 
-We add a method **putc** to the [IO Class](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc) to put a character on the screen and update the (x,y) position.
+我们增加一个方法  **putc** 到 [IO Class](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc)，来输出一个字符到屏幕并更新(x,y)光标的位置。
 
 ```cpp
 /* put a byte on screen */
@@ -51,7 +51,7 @@ void Io::putc(char c){
 }
 ```
 
-We also add a useful and very known method: [printf](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc#L155)
+我们也增加一个非常有用且被熟知的方法：[printf](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc#L155)
 
 ```cpp
 /* put a string in screen */
@@ -153,13 +153,12 @@ void Io::print(const char *s, ...){
 }
 ```
 
-#### Assembly interface
+#### 汇编接口
+大量的指令在汇编里是可用的，但和用C的感觉是不同的，所以我们对这些指令封装成接口方便使用。
 
-A large number of instructions are available in Assembly but there is not equivalent in C (like cli, sti, in and out), so we need an interface to these instructions.
+在C代码里，我们能够直接包含汇编代码通过 "asm()" 指令， gcc会使用gas（GNU Assembler）编译汇编代码。
 
-In C, we can include Assembly using the directive "asm()", gcc use gas to compile the assembly.
-
-**Caution:** gas uses the AT&T syntax.
+**注意:** gas 使用 AT&T 语法.
 
 ```cpp
 /* output byte */
@@ -193,3 +192,6 @@ u32	Io::inl(u32 ad){
 	return _v;
 }
 ```
+
+译者注：
+* 地址[0xb8000]是保护模式下显存的起始地址

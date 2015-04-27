@@ -3,7 +3,8 @@
 
 这是一本关于用C/C++写一个操作系统的书籍。
 
-注： 作者一些简单介绍,不作翻译。
+注： 作者一些简单介绍,不作翻译。 
+
 **Caution**: This repository is a remake of my old course. It was written several years ago [as one of my first projects when I was in High School](https://github.com/SamyPesse/devos), I'm still refactoring some parts. The original course was in French and I'm not an English native. I'm going to continue and improve this course in my free-time.
 
 **Book**: An online version is available at [http://samypesse.gitbooks.io/how-to-create-an-operating-system/](http://samypesse.gitbooks.io/how-to-create-an-operating-system/) (PDF, Mobi and ePub). It was been generated using [GitBook](https://www.gitbook.com/).
