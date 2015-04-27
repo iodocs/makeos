@@ -1,6 +1,5 @@
-## Chapter 6: GDT
 ## 章节六 GDT
-归功于GRUB，你的内核不再是实时模式，而是处于[protected mode（保护模式）](http://en.wikipedia.org/wiki/Protected_mode)，该模式允许我们使用微处理器的所有潜力，比如 虚拟内存管理，分页，安全的多任务。
+归功于GRUB，你的内核不再是实模式（real mode），而是处于[protected mode（保护模式）](http://en.wikipedia.org/wiki/Protected_mode)，该模式允许我们使用微处理器的所有潜力，比如 虚拟内存管理，分页，安全的多任务。
 
 #### What is the GDT?
 
