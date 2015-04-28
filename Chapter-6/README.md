@@ -30,7 +30,7 @@
 #### 如何加载GDT?
 
 GRUB初始化一个GDT，但这个GDT不属于我们的内核。
-这个GDT是使用 LGDT(加载全局描述符) 汇编指令加载的。 它用来获取一个GDT描述结构体的位置。
+这个GDT是使用 LGDT(加载全局描述符) 汇编指令加载的。 LGDT用来获取一个GDT描述结构体的位置。
 
 GRUB initializes a GDT but this GDT is does not correspond to our kernel.
 The GDT is loaded using the LGDT assembly instruction. It expects the location of a GDT description structure:
@@ -48,7 +48,7 @@ struct gdtr {
 
 **注意:** 指令 ```__attribute__ ((packed))``` 用来告诉gcc，该结构体应该尽可能使用少的内存。没有该指令，gcc将包含一些用来优化执行期间访问内存对齐的字节。
 
-现在我们需要定义我们自己的GDT，然后使用LGDT加载它。GDT 能够存储在内存中的任何位置，它的地址应该通过 GDTR注册来通知给进程。
+现在我们需要定义我们自己的GDT，然后使用LGDT加载它。GDT 能够存储在内存中的任何位置，它的地址应该通过 GDTR注册来告诉给处理器。
 
 Now we need to define our GDT table and then load it using LGDT. The GDT table can be stored wherever we want in memory, its address should just be signaled to the process using the GDTR registry.
 
