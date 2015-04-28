@@ -35,12 +35,16 @@ GRUB使用 `多启动规范`,被其加载执行的二进制执行文件应该是
 我们内核的第一启动顺序由汇编写成：[start.asm](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/start.asm) ，并使用链接器链接到我们的内核结构体上：[linker.ld](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/linker.ld)
 
 译者注：
-让我们深入了解下 linker.ld 
-```
+让我们深入了解下链接脚本 linker.ld 
 
+链接脚本主要用于规定如何把输入文件内的section放入输出文件内, 并控制输出文件内各部分在程序地址空间内的布局
+```
+/* 定义输出文件的名字 */
 OUTPUT_FORMAT(elf32-i386)
+/* 设置输出文件的machine architecture(体系结构) */
 OUTPUT_ARCH(i386)
-/* bootloader 入口点. */
+/* 入口地址(entry point): 进程执行的第一条用户空间的指令在进程地址空间的地址
+  将符号_start的值设置成入口地址 */
 ENTRY (_start)
 
 SECTIONS{
@@ -264,6 +268,6 @@ losetup -d /dev/loop1
 * [Linux源代码阅读——内核引导](http://home.ustc.edu.cn/~boj/courses/linux_kernel/1_boot.html)
 * [Booting_the_kernel](http://wiki.osdev.org/Bare_bones#Booting_the_kernel)
 * [如何用grub引导你的内核](http://module77.is-programmer.com/posts/16190.html)
-
+* [GNU-ld链接脚本浅析](http://blog.chinaunix.net/uid-13701930-id-336528.html)
 
 下一章: [OS核心和C++运行时](../Chapter-4/README.md/) 
