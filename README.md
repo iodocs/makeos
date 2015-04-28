@@ -3,7 +3,11 @@
 
 这是一本关于用C/C++写一个操作系统的书籍。
 
-注： 作者一些简单介绍,不作翻译。 
+* 原作者：https://github.com/SamyPesse
+* 原项目：https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System
+
+
+译者注：下文是作者对该项目的简单介绍，包括写本书的起因，GitBook，源码，欢迎大家贡献和交流。 
 
 **Caution**: This repository is a remake of my old course. It was written several years ago [as one of my first projects when I was in High School](https://github.com/SamyPesse/devos), I'm still refactoring some parts. The original course was in French and I'm not an English native. I'm going to continue and improve this course in my free-time.
 
@@ -17,7 +21,8 @@
 
 You can follow me on Twitter [@SamyPesse](https://twitter.com/SamyPesse) or support me on [Flattr](https://flattr.com/profile/samy.pesse) or [Gittip](https://www.gittip.com/SamyPesse/).
 
-### 我们将构建一个什么类型的操作系统？
+### 我们将构建一个怎样的操作系统？
 我们的目标是构建一个基于C++开发的类UNIX操作系统，但是我们不仅仅是做一个`POC(概念验证)`。这个操作系统应该能够启动，运行用户态SHELL并能够被扩展。
 
 ![Screen](./preview.png)
+
