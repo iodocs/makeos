@@ -63,12 +63,42 @@ qemu的使用请参阅  [QEMU Emulator Documentation](http://wiki.qemu.org/downl
 
 你可以通过 `Ctrl-a` 退出模拟器。
 
-译者注：
+### 译者注：
+-----
+#### 自动动手准备操作系统和依赖软件
 
-一些Vagrant中文参考资料：
+本文中作者实际是准备了一个在Virtualbox内运行的Ubuntu 10.04.4 LTS操作系统，然后安装了实验所需的软件 ```sudo apt-get install nasm make build-essential grub qemu zip```，所以熟悉Linux的同学完全可以自己准备这套环境。
 
-http://segmentfault.com/a/1190000000264347
 
-http://blog.smdcn.net/article/1308.html
+#### 基于Vagrant使用本地Box
+当然掌握Vagrant后，会让你的开发之路变得更为顺畅，鉴于国内网络情况，我们无法很顺畅的使用这些工具，很多在线安装都无法直接进行。
+
+我们提供在国内网盘上提供了该 [lucid32 Box](http://pan.baidu.com/s/1c0cuNDI)，用户可以下载后在本地导入:
+```
+$ vagrant box add lucid32 ./lucid32.box
+==> box: Adding box 'lucid32' (v0) for provider:
+    box: Downloading: file://e:/Vagrant/lucid32.box
+    box: Progress: 100% (Rate: 1065M/s, Estimated time remaining: --:--:--)
+==> box: Successfully added box 'lucid32' (v0) for 'virtualbox'!
+
+$ mkdir devos
+$ cd devos
+```
+将 [Vagrantfile](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/Vagrantfile) 拷贝到该目录下
+```
+$ vagrant up
+
+$ vagrant ssh
+
+```
+
+#### 基于Vagrant使用完整版本地Box
+
+我们还准备了一个安装了以上所述软件的 [makeos Box](http://pan.baidu.com/s/1nt7k7Ct)，同学可以按上面的方法导入本地的Box使用，启动时也可以免去长时间的网络安装软件包的时间。
+
+
+参考：
+* [使用 Vagrant 打造跨平台开发环境](http://segmentfault.com/a/1190000000264347) 
+* [使用Vagrant在Windows下部署开发环境](http://blog.smdcn.net/article/1308.html)
 
 下一章: [基于GRUB启动](../Chapter-3/README.md/) 
