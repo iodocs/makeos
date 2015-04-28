@@ -1,20 +1,19 @@
-## Chapter 7: IDT and interrupts
+## 章节七 IDT(中断描述符表)和中断 
 
-An interrupt is a signal to the processor emitted by hardware or software indicating an event that needs immediate attention.
+中断（英语：Interrupt）是指处理器接收到来自硬件或软件的信号，提示发生了某个事件，应该被注意，这种情况就称为中断。
 
-There are 3 types of interrupts:
+中断分为3种：
 
-- **Hardware interrupts:** are sent to the processor from an external device (keyboard, mouse, hard disk, ...). Hardware interrupts were introduced as a way to reduce wasting the processor's valuable time in polling loops, waiting for external events.
-- **Software interrupts:** are initiated voluntarily by the software. It's used to manage system calls.
-- **Exceptions:**  are used for errors or events occurring during program execution that are exceptional enough that they cannot be handled within the program itself (division by zero, page fault, ...)
+- **硬件中断:** 由外部设备发送给处理器，比如 键盘，鼠标，硬盘等。硬件中断是一种在轮询循环，等待外部事件方面避免浪费处理器的宝贵时间的方式。
+- **软件中断:** 是一条CPU指令，用以自陷一个中断。由于软中断指令通常要运行一个切换CPU至内核态（Kernel Mode/Ring 0）的子例程，它常被用作实现系统调用（System call）。
+- **异常:**  程序运行期间不能自身处理的错误和事件，比如页中断，被零除等。
 
-#### The keyboard example:
+#### 键盘示例
+当用户按下键盘上的一个键时，键盘控制器将产生中断信号至中断控制器。如果中断不被屏蔽，控制器将中断发送给处理器，处理器将执行一个中断 服务子程序来处理中断（键按压或释放键），这个中断处理可能是获取按键并输出到屏幕。一旦字符处理程序完成时，被中断的作业就可以恢复。
 
-When the user pressed a key on the keyboard, the keyboard controller will signal an interrupt to the Interrupt Controller. If the interrupt is not masked, the controller will signal the interrupt to the processor, the processor will execute a routine to manage the interrupt (key pressed or key released), this routine could, for example, get the pressed key from the keyboard controller and print the key to the screen. Once the character processing routine is completed, the interrupted job can be resumed.
+#### 什么是PIC?
 
-#### What is the PIC?
-
-The [PIC](http://en.wikipedia.org/wiki/Programmable_Interrupt_Controller) (Programmable interrupt controller)is a device that is used to combine several sources of interrupt onto one or more CPU lines, while allowing priority levels to be assigned to its interrupt outputs. When the device has multiple interrupt outputs to assert, it asserts them in the order of their relative priority.
+[PIC](http://en.wikipedia.org/wiki/Programmable_Interrupt_Controller) ([Programmable interrupt controller,可编程中断控制器 ](http://baike.baidu.com/view/2348508.htm)) is a device that is used to combine several sources of interrupt onto one or more CPU lines, while allowing priority levels to be assigned to its interrupt outputs. When the device has multiple interrupt outputs to assert, it asserts them in the order of their relative priority.
 
 The best known PIC is the 8259A, each 8259A can handle 8 devices but most computers have two controllers: one master and one slave, this allows the computer to manage interrupts from 14 devices.
 
@@ -248,3 +247,7 @@ _asm_int_%1:
 ```
 
 These macros will be used to define the interrupt segment that will prevent corruption of the different registries, it will be very useful for multitasking.
+
+
+译者注：
+* [中断](http://zh.wikipedia.org/wiki/%E4%B8%AD%E6%96%B7)

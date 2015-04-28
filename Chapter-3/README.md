@@ -1,41 +1,89 @@
-## Chapter 3: First boot with GRUB
+## 章节三 基于GRUB启动
 
-#### How the boot works?
+### boot 是怎样工作的？
 
-When an x86-based computer is turned on, it begins a complex path to get to the stage where control is transferred to our kernel's "main" routine (`kmain()`). For this course, we are only going to consider the BIOS boot method and not it's successor (UEFI).
+当 X86 电脑开机后，经过一个复杂的阶段后，控制权将交给内核的 "main" 入口 (`kmain()`)。 在本章中，我们仅仅了解BIOS引导的方式，不关注UEFI（统一可扩展固件接口）。
 
-The BIOS boot sequence is: RAM detection -> Hardware detection/Initialization -> Boot sequence.
+BIOS启动的过程是：RAM detection(RAM检测) -> Hardware detection/Initialization （硬盘检测）-> Boot sequence（启动顺序）.
 
-The most important step for us is the "Boot sequence", where the BIOS is done with its initialization and tries to transfer control to the next stage of the bootloader process.
+最重要的一步是"Boot sequence"（启动顺序）， BIOS在此阶段结束后将尝试交换控制权到下个阶段的bootloader（引导程序）。
 
-During the "Boot sequence", the BIOS will try to determine a "boot device" (e.g. floppy disk, hard-disk, CD, USB flash memory device or network). Our Operating System will initially boot from the hard-disk (but it will be possible to boot it from a CD or a USB flash memory device in future). A device is considered bootable if the bootsector contains the valid signature bytes `0x55` and `0xAA` at offsets 511 and 512 respectively (called the magic bytes of Master Boot Record (MBR), This signature is represented (in binary) as 0b1010101001010101. The alternating bit pattern was thought to be a protection against certain failures (drive or controller). If this pattern is garbled or 0x00, the device is not considered bootable)
+在"Boot sequence"阶段，BIOS将选择一个"boot device"（启动设备），比如floppy disk（闪存）, hard-disk（硬盘）, CD, USB flash memory device（USB设备） 或者 network（网络）。我们的操作系统将从硬盘初始化启动，当然以后也可以从CD，USB介质启动。 判断设备是否能够引导，还需校验该设备是否包含Master Boot Record (MBR：主引导记录），校验手法是判断偏移第511字节为`0x55`，第512字节为`0xAA`，这两个字节二进制表示为 0b1010101001010101，如果这两个字节不等于 `0x55AA`，则该设备不能被引导。
 
-BIOS physically searches for a boot device by loading the first 512 bytes from the bootsector of each device into physical memory, starting at the address `0x7C00` (1 KiB below the 32 KiB mark). When the valid signature bytes are detected, BIOS transfers control to the `0x7C00` memory address (via a jump instruction) in order to execute the bootsector code.
+BIOS搜寻引导设备的方式是从每个设备的引导区加载前512字节到物理内存的`0x7C00`处。 当上述的标志校验通过后，BIOS通过跳转执行`0x7C00`的引导区代码，从而交换控制权。
 
-Throughout this process the CPU has been running in 16-bit Real Mode (the default state for x86 CPUs in order to maintain backwards compatibility). To execute the 32-bit instructions within our kernel, a bootloader is required to switch the CPU into Protected Mode.
+此时的CPU还是运行在16位模式（X86向后兼容的特性）。为了执行我们的32位内核，引导程序必须切换CPU到保护模式下。
 
-#### What is GRUB?
+#### GRUB是什么?
 
-> GNU GRUB (short for GNU GRand Unified Bootloader) is a boot loader package from the GNU Project. GRUB is the reference implementation of the Free Software Foundation's Multiboot Specification, which provides a user the choice to boot one of multiple operating systems installed on a computer or select a specific kernel configuration available on a particular operating system's partitions.
+> GNU GRUB（简称“GRUB”）是一个来自GNU项目的启动引导程序。GRUB是`多启动规范`的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。.
 
-To make it simple, GRUB is the first thing booted by the machine (a boot-loader) and will simplify the loading of our kernel stored on the hard-disk.
+简而言之，GRUB就是用来启动后加载存储在硬盘上的内核。
 
-#### Why are we using GRUB?
 
-* GRUB is very simple to use
-* Make it very simple to load 32bits kernels without needs of 16bits code
-* Multiboot with Linux, Windows and others
-* Make it easy to load external modules in memory
+#### 为何使用GRUB?
 
-#### How to use GRUB?
+* GRUB易于使用
+* 可以直接用来加载32位内核
+* 支持多系统引导(Multiboot with Linux, Windows and others)
+* 易于加载额外模块到内存
 
-GRUB uses the Multiboot specification, the executable binary should be 32bits and must contain a special header (multiboot header) in its 8192 first bytes. Our kernel will be a ELF executable file ("Executable and Linkable Format", a common standard file format for executables in most UNIX system).
+#### 如何使用GRUB?
 
-The first boot sequence of our kernel is written in Assembly: [start.asm](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/start.asm) and we use a linker file to define our executable structure: [linker.ld](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/linker.ld).
+GRUB使用 `多启动规范`,被其加载执行的二进制执行文件应该是32位并且前8192字节必须包含指定的multiboot header（多启动规范头）。我们的内核是 `ELF` 执行文件，`ELF` 是大多数UNIX系统下的标准执行文件格式。
 
-This boot process also initializes some of our C++ runtime, it will be described in the next chapter.
+我们内核的第一启动顺序由汇编写成：[start.asm](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/start.asm) ，并使用链接器链接到我们的内核结构体上：[linker.ld](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/linker.ld)
 
-Multiboot header structure:
+译者注：
+让我们深入了解下 linker.ld 
+```
+
+OUTPUT_FORMAT(elf32-i386)
+OUTPUT_ARCH(i386)
+/* bootloader 入口点. */
+ENTRY (_start)
+
+SECTIONS{
+	/* 据说是grub规定内核必须被加载到1M以上的内存  0x00100000为1 MiB. */
+    . = 0x00100000;
+
+    .text :{
+        *(.text)
+    }
+
+	.data ALIGN (0x1000) : {
+	   start_ctors = .;
+	   *(.ctor*)
+	   end_ctors = .;
+	   start_dtors = .;
+	   *(.dtor*)
+	   end_dtors = .;
+	   *(.data)
+	}
+
+	/* 只读数据 4K */
+    .rodata ALIGN (0x1000) : {
+        *(.rodata)
+    }
+
+	/* 数据(已被初始化) 4K */
+    .data ALIGN (0x1000) : {
+        *(.data)
+    }
+
+	/* 数据（未被初始化) 和栈 */ 
+    .bss : {
+        sbss = .;
+        *(COMMON)
+        *(.bss)
+        ebss = .;
+    }
+}
+```
+
+引导程序也初始化一些C++运行时，在后面的章节中将有所描述。
+
+`Multiboot`多协议规范头结构体：
 
 ```cpp
 struct multiboot_info {
@@ -67,90 +115,116 @@ struct multiboot_info {
 	unsigned long vbe_interface_len;
 };
 ```
+通过使用命令 ```mbchk kernel.elf``` 来检验 kernel.elf 文件是否符合`multiboot`标准，也可以通过命令 ```nm -n kernel.elf``` 校验ELF二进制文件不同对象的偏移量。
 
-You can use the command ```mbchk kernel.elf``` to validate your kernel.elf file against the multiboot standard. You can also use the command ```nm -n kernel.elf``` to validate the offset of the different objects in the ELF binary.
+#### 创建内核和GRUB磁盘镜像
 
-#### Create a disk image for our kernel and grub
+译者注：
+首先读者应该了解下磁盘相关的知识：
 
-The script [diskimage.sh](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/sdk/diskimage.sh) will generate a hard disk image that can be used by QEMU.
+![disk](./track_sector.jpg)
 
-The first step is to create a hard-disk image (c.img) using qemu-img:
+> 
+磁道：Track，可以理解为一个圆形盘片由许许多多的同心圆组成，每一个同心圆可以认为是一个磁道。（硬盘是一个高速旋转的东西，当磁盘旋转时，磁头若保持在一个位置上不动，则磁头会在磁盘表面划出一个圆形轨迹，这些圆形轨迹就叫做磁道）
+>
+扇区：Sector，可以联想到“扇形区域”，磁盘上的每个磁道被等分为若干个弧段，这些弧段便是磁盘的扇区，每个扇区的大小为512个字节，磁盘驱动器在向磁盘读取和写入数据时应该以扇区为单位。
+>
+柱面：Cylinder，硬盘通常由重叠的一组盘片构成，每个盘面都被划分为数目相等的磁道，并从外缘的0开始编号，具有相同编号的磁道形成一个圆柱，称之为磁盘的柱面。显然，磁盘的柱面数与一个盘面上的磁道数是相等的。
+>
+磁头：Head，当然是读取信息用的了。每个盘面都有自己的磁头，如果盘面的双面都记录信息，那么双面都应该有磁头。所以，硬盘的容量计算公式如下：硬盘的容量=柱面数×磁头数×扇区数×512（字节数）
 
+
+脚本 [diskimage.sh](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/sdk/diskimage.sh) 可以生成一个给QEMU使用的磁盘镜像。
+
+##### 下面是该脚本的部分解释：
+首先使用 ```qemu-img``` 创建硬盘镜像(c.img)：
 ```
 qemu-img create c.img 2M
 ```
 
-We need now to partition the disk using fdisk:
-
+接下来使用 ```fdisk``` 给磁盘分区:
 ```bash
 fdisk ./c.img
 
-# Switch to Expert commands
+# Switch to Expert commands 专家命令模式
 > x
 
-# Change number of cylinders (1-1048576)
+# Change number of cylinders (1-1048576) 设置柱面数量
 > c
 > 4
 
-# Change number of heads (1-256, default 16):
+# Change number of heads (1-256, default 16): 设置磁头数量
 > h
 > 16
 
-# Change number of sectors/track (1-63, default 63)
+# Change number of sectors/track (1-63, default 63) 设置每个磁道的扇区数量
 > s
 > 63
 
-# Return to main menu
+# Return to main menu 返回主菜单
 > r
 
-# Add a new partition
+# Add a new partition 增加新的分区
 > n
 
-# Choose primary partition
+# Choose primary partition 设置为主分区
 > p
 
-# Choose partition number
+# Choose partition number 设置分区号
 > 1
 
-# Choose first sector (1-4, default 1)
+# Choose first sector (1-4, default 1) 设置起始扇区
 > 1
 
-# Choose last sector, +cylinders or +size{K,M,G} (1-4, default 4)
+# Choose last sector, +cylinders or +size{K,M,G} (1-4, default 4) 设置分区大小为整个磁盘
 > 4
 
-# Toggle bootable flag
+# Toggle bootable flag 切换启动标志
 > a
 
-# Choose first partition for bootable flag
+# Choose first partition for bootable flag 设置第一分区为引导区
 > 1
 
-# Write table to disk and exit
+# Write table to disk and exit 写入
 > w
 ```
 
-We need now to attach the created partition to the loop-device (which allows a file to be access like a block device) using losetup. The offset of the partition is passed as an argument and calculated using: **offset= start_sector * bytes_by_sector**.
+现在需要使用 ```losetup``` 连接镜像`c.img`为loop-device（伪设备），伪设备能使我们像块设备一样访问一个文件。 losetup需要传入一个分区偏移量参数，该参数可以通过 **offset= start_sector * bytes_by_sector** 计算得到。
 
-Using ```fdisk -l -u c.img```, you get: 63 * 512 = 32256.
+使用 ```fdisk -l -u c.img```, 将得到: 63 * 512 = 32256.
+```
+# fdisk -l -u c.img            
+You must set cylinders.
+You can do this from the extra functions menu.
+
+Disk c.img: 0 MB, 0 bytes
+16 heads, 63 sectors/track, 0 cylinders, total 0 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xe8c36f7f
+
+Device Boot      Start         End      Blocks   Id  System
+c.img1   *          63        4031        1984+  83  Linux
+```
 
 ```bash
 losetup -o 32256 /dev/loop1 ./c.img
 ```
 
-We create a EXT2 filesystem on this new device using:
+使用```mse2fs```对设备创建EXT2文件系统
 
 ```bash
 mke2fs /dev/loop1
 ```
-
-We copy our files on a mounted disk:
-
+拷贝bootdisk下的文件到挂载的磁盘上：
 ```bash
 mount  /dev/loop1 /mnt/
 cp -R bootdisk/* /mnt/
 umount /mnt/
 ```
 
-Install GRUB on the disk:
+在该磁盘上安装GRUB:
 
 ```bash
 grub --device-map=/dev/null << EOF
@@ -162,13 +236,34 @@ quit
 EOF
 ```
 
-And finally we detach the loop device:
+卸载该伪设备:
 
 ```bash
 losetup -d /dev/loop1
 ```
 
-#### See Also
+#### 参考
 
 * [GNU GRUB on Wikipedia](http://en.wikipedia.org/wiki/GNU_GRUB)
 * [Multiboot specification](https://www.gnu.org/software/grub/manual/multiboot/multiboot.html)
+
+
+译者注：
+
+* [UEFI](http://baike.baidu.com/item/UEFI) : 统一可扩展固件接口（Unified Extensible Firmware Interface, UEFI）是一种个人电脑系统规格，用来定义操作系统与系统固件之间的软件界面，作为BIOS的替代方案[1]。可扩展固件接口负责加电自检（POST）、连系操作系统以及提供连接操作系统与硬件的接口。
+* [计算机是如何启动的？](http://www.ruanyifeng.com/blog/2013/02/booting.html)
+* [GNU GRUB](http://zh.wikipedia.org/wiki/GNU_GRUB)
+* GRUB详解 https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+* [Linux引导过程内幕](https://www.ibm.com/developerworks/cn/linux/l-linuxboot/)
+* [ELF文件格式](http://baike.baidu.com/subview/1090277/10973487.htm)
+* [UNIX/LINUX 平台可执行文件格式分析](https://www.ibm.com/developerworks/cn/linux/l-excutff/)
+* [loop device介绍](http://zh.wikipedia.org/wiki//dev/loop)
+* [磁盘介绍](http://blog.csdn.net/badbad_boy/article/details/4313645)
+* [qemu-img命令介绍](http://smilejay.com/2012/08/qemu-img-details/)
+* [用 GRUB 引导自己的操作系统](http://blog.csdn.net/liyuanbhu/article/details/7583595)
+* [Linux源代码阅读——内核引导](http://home.ustc.edu.cn/~boj/courses/linux_kernel/1_boot.html)
+* [Booting_the_kernel](http://wiki.osdev.org/Bare_bones#Booting_the_kernel)
+* [如何用grub引导你的内核](http://module77.is-programmer.com/posts/16190.html)
+
+
+下一章: [OS核心和C++运行时](../Chapter-4/README.md/) 

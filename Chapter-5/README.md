@@ -1,8 +1,8 @@
-## 章节五 管理X86体系的基本类
+## 章节五 管理X86体系的基础类
 
-我们已经知道怎样编译C++内核并通过GRUB启动该二进制文件，我们能够用C/C++做一些酷的事儿了。
+我们已经知道怎样编译C++内核并通过GRUB启动该二进制文件，现在我们能够用C/C++做一些很酷的事了。
 
-#### 输出到屏幕控制台
+#### 输出文本到屏幕控制台
 
 我们继续使用 `VGA` 默认模式（03h) 来对用户显示一些文本。屏幕可以通过起始地址为0xB8000的Video Memory（显存)直接访问，屏幕分辨率是80*25，每个字符在屏幕上被定义为2个字节：一个是字符码，另一个是属性字节（描述了字符的表现形式，包括了字符颜色等属性）。这些意味着显存总大小为 4000B （80B * 25B * 2B）。
 
@@ -12,7 +12,7 @@
 * **putc(char c)**: 输出一个单独的字符到屏幕上并管理光标的位置。
 * **printf(char* s, ...)**: 输出字符串
 
-我们增加一个方法  **putc** 到 [IO Class](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc)，来输出一个字符到屏幕并更新(x,y)光标的位置。
+增加一个方法  **putc** 到 [IO Class](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc)，其作用是输出一个字符到屏幕并更新(x,y)光标的位置。
 
 ```cpp
 /* put a byte on screen */
@@ -51,7 +51,7 @@ void Io::putc(char c){
 }
 ```
 
-我们也增加一个非常有用且被熟知的方法：[printf](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc#L155)
+增加一个非常有用且被熟知的方法：[printf](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc#L155)
 
 ```cpp
 /* put a string in screen */
@@ -156,7 +156,7 @@ void Io::print(const char *s, ...){
 #### 汇编接口
 大量的指令在汇编里是可用的，但和用C的感觉是不同的，所以我们对这些指令封装成接口方便使用。
 
-在C代码里，我们能够直接包含汇编代码通过 "asm()" 指令， gcc会使用gas（GNU Assembler）编译汇编代码。
+在C代码里，我们能够直接通过 "asm()" 指令调用汇编代码， gcc会使用 `gas`（GNU Assembler）编译汇编代码。
 
 **注意:** gas 使用 AT&T 语法.
 
@@ -195,3 +195,6 @@ u32	Io::inl(u32 ad){
 
 译者注：
 * 地址[0xb8000]是保护模式下显存的起始地址
+
+
+下一章: [GDT全局描述表](../Chapter-6/README.md/) 

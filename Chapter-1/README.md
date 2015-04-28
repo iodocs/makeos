@@ -33,3 +33,6 @@
 
 ## 参考资料
 * [X86 架构](http://baike.baidu.com/link?url=S6VXX4KQpo9U56AQe7BM8Ku-tKobnOQh47I_MfmwD3vf4ahK0XpeB9BCsyHSZLV1S7Ct1PfQGjO09agAYVkcaq)
+
+
+下一章: [准备开发环境](../Chapter-2/README.md/) 

@@ -4,7 +4,7 @@
 
 内核能够通过C++编程，除了一些陷阱（运行时支持，构造函数，...），你需要注意外，和用C编程基本类似。
 
-编译器会假定所有必要的c++运行时支持在默认情况下是可用的，但是我们不能链接libsupc++到C++内核中，所以需要增加一些基本函数，这些函数在 [cxx.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/cxx.cc)。
+编译器会假定所有必要的c++运行时支持在默认情况下是可用的，但是我们不能链接[libsupc++](#jump_libsupc++)到C++内核中，所以需要增加一些基本函数，这些函数在 [cxx.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/cxx.cc)。
 
 
 **注意:** 操作符 `new` 和 `delete` 不能在虚拟内存和分页初始化之前使用。 
@@ -70,6 +70,10 @@ ASMFLAG=-f elf -o
 
 译者注：
 
-* `libsupc++` 是g++的支持库，其包含了解决[RTTI(Run-Time Type Information，通过运行时类型信息)](http://baike.baidu.com/item/RTTI)和异常处理的函数。
+* <span id="jump_libsupc++">`libsupc++`</span> 是g++的支持库，其包含了解决[RTTI(Run-Time Type Information，通过运行时类型信息)](http://baike.baidu.com/item/RTTI)和异常处理的函数。
 * [GCC参数指令介绍](http://aikosenoo.pixnet.net/blog/post/23038692-%5B%E7%AD%86%E8%A8%98%5D-gcc%E5%8F%83%E6%95%B8%E6%8C%87%E4%BB%A4(%E8%BD%89%E9%8C%84)
 * [trigraphs三元符](http://blog.csdn.net/todd911/article/details/8846615)
+
+
+
+下一章: [管理X86体系的基础类](../Chapter-5/README.md/) 

@@ -70,3 +70,5 @@ qemu的使用请参阅  [QEMU Emulator Documentation](http://wiki.qemu.org/downl
 http://segmentfault.com/a/1190000000264347
 
 http://blog.smdcn.net/article/1308.html
+
+下一章: [基于GRUB启动](../Chapter-3/README.md/) 
