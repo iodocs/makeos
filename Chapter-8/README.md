@@ -18,6 +18,7 @@ Paging will allow our kernel to:
 * use the hard-drive as a memory and not be limited by the machine ram memory limit
 * to have a unique memory space for each process
 * to allow and unallow memory space in a dynamic way
+
 -------------------------
 * 使用硬盘作为存储，且不受RAM内存的限制
 * 每个进程使用独立的内存空间
@@ -42,6 +43,7 @@ The translation of a linear address to a physical address is done in multiple st
 2. The first 10 bits of the linear address represent an offset (between 0 and 1023), pointing to an entry in the pages directory. This entry contains the physical address of a pages table.
 3. the next 10 bits of the linear address represent an offset, pointing to an entry in the pages table. This entry is pointing to a 4ko page.
 4. The last 12 bits of the linear address represent an offset (between 0 and 4095), which indicates the position in the 4ko page.
+
 ----------------------------
 1. 处理器从CR3寄存器中获取页目录的物理地址。（页目录中为页面表）
 2. 线性地址的前10位代表一个偏移（0-1023），它指向页目录中的一个索引项。这个索引项包含一个页面表的物理地址。（每个活动的进程都有一个独立的页面表）
@@ -70,6 +72,7 @@ The two types of entries (table and directory) look like the same. Only the fiel
 * `PS` (only for pages directory) indicate the size of pages:
     * 0 = 4ko
     * 1 = 4mo
+
 -------------------------------
 * `p`: 标记一个页或表是否在物理内存中
 * `R/W`: 标记一个页或表是否正在写（以书面形式访问） (equals 1：=1则是)
@@ -79,14 +82,16 @@ The two types of entries (table and directory) look like the same. Only the fiel
 * `PS` (只针对页目录) 标记页大小:
     * 0 = 4ko
     * 1 = 4mo
-    
+
 **Note:** Physical addresses in the pages diretcory or pages table are written using 20 bits because these addresses are aligned on 4ko, so the last 12bits should be equal to 0.
+
 ----------------------------------
 **注意:** 页目录与页表的地址，都要被写入20位，因为这些地址都是4k对齐, 所以最后12位应该置0。
 
 * A pages directory or pages table used 1024*4 = 4096 bytes = 4k
 * A pages table can address 1024 * 4k = 4 Mo
 * A pages directory can address 1024 * (1024 * 4k) = 4 Go
+
 ---------------------------------
 * 一个页目录或页表使用 1024*4 = 4096 bytes = 4k
 * 一个页表可表示地址范围 1024 * 4k = 4 Mo
@@ -97,6 +102,7 @@ The two types of entries (table and directory) look like the same. Only the fiel
 #### 怎样启动分页？
 
 To enable pagination, we just need to set bit 31 of the `CR0`registry to 1:
+
 ------------------------
 启动分页功能，我们只需要将`CR0`寄存器的第31位置之：
 
@@ -108,8 +114,9 @@ asm("  mov %%cr0, %%eax; \
 ```
 
 But before, we need to initialize our pages directory with at least one pages table.
+
 ---------------------
 但是之前，我们至少需要一个页表来初始化我们的页目录。
 
 
-**本人新手coder，不知翻译是否有所偏差，希望能持续对此项目贡献绵薄之力**
+**本人新手coder，不知翻译是否有所偏差（没问题的话，我再将部分英文删除），希望能持续对此项目贡献绵薄之力**
