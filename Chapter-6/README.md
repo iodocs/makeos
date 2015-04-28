@@ -1,11 +1,11 @@
 ## 章节六 GDT全局描述表
 
 
-归功于GRUB，你的内核不再是 [real mode(实模式)](http://baike.baidu.com/view/404433.htm)，而是处于[protected mode（保护模式）](http://en.wikipedia.org/wiki/Protected_mode)，该模式允许我们使用微处理器的所有能力，比如 虚拟内存管理，分页，安全的多任务。
+归功于GRUB，你的内核不再是 [real mode(实模式)](http://baike.baidu.com/view/404433.htm)，而是处于[protected mode（保护模式）](http://baike.baidu.com/view/177586.htm)，该模式允许我们使用微处理器的所有能力，比如 虚拟内存管理，分页，安全的多任务。
 
 #### GDT 是什么？
 
-[GDT](http://en.wikipedia.org/wiki/Global_Descriptor_Table) ("Global Descriptor Table" 全局描述表) 是一个用来定义不同内存区的数据结构，其包括:基地址，大小，访问特权（比如执行和写），这些区域被称为 "segments（段）"。
+[GDT](http://baike.baidu.com/view/4109224.htm) ("Global Descriptor Table" 全局描述表) 是一个用来定义不同内存区的数据结构，其包括:基地址，大小，访问特权（比如执行和写），这些区域被称为 "segments（段）"。
 
 我们将使用GDT定义不同的内存段：
 
