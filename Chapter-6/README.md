@@ -32,9 +32,11 @@
 GRUB初始化一个GDT，但这个GDT不属于我们的内核。
 GDT是使用 [LGDT(加载全局描述符) 汇编指令](http://www.0x01f.com/static/IntelCode/instruct32_hh/vc155.htm) 加载的。 LGDT需要一个GDT描述结构的位置。
 
+GDT描述符：
+
 ![GDTR](./gdtr.png)
 
-GDT描述结构 C 结构体:
+C 结构体:
 
 ```cpp
 struct gdtr {
@@ -51,7 +53,7 @@ struct gdtr {
 >
 >GDTR寄存器中用于存放全局描述符表GDT的32位的线性基地址和16位的表限长值。基地址指定GDT表中字节0在线性地址空间中的地址，表长度指明GDT表的字节长度值。指令LGDT和SGDT分别用于加载和保存GDTR寄存器的内容。在机器刚加电或处理器复位后，基地址被默认地设置为0，而长度值被设置成0xFFFF。在保护模式初始化过程中必须给GDTR加载一个新值。
 
-`GDT table` 是如下段描述符结构体的组成的数组：
+`GDT table` 是如下段描述符结构体组成的数组：
 
 ![GDTR](./gdtentry.png)
 
@@ -79,7 +81,7 @@ struct gdtdesc {
 #define GDTBASE	0x00000800
 ```
 
-[x86.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/x86.cc) 中的函数 **init_gdt_desc** 初始化一个GDT段描述符。
+[x86.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/x86.cc) 中的函数 **init_gdt_desc** 初始化一个GDT段描述符：
 
 ```cpp
 void init_gdt_desc(u32 base, u32 limite, u8 acces, u8 other, struct gdtdesc *desc)

@@ -51,7 +51,7 @@ typedef signed long long	s64;
 该 [Makefile](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/Makefile) 
 定义了编译和链接我们内核的过程。
 
-对于 X86 体系，下面一些参数需要被 `gcc/g++/ld 使用`：
+对于 X86 体系， `gcc/g++/ld` 需要下面一些参数：
 
 ```
 # Linker
@@ -71,9 +71,8 @@ ASMFLAG=-f elf -o
 译者注：
 
 * <span id="jump_libsupc++">`libsupc++`</span> 是g++的支持库，其包含了解决[RTTI(Run-Time Type Information，通过运行时类型信息)](http://baike.baidu.com/item/RTTI)和异常处理的函数。
-* [GCC参数指令介绍](http://aikosenoo.pixnet.net/blog/post/23038692-%5B%E7%AD%86%E8%A8%98%5D-gcc%E5%8F%83%E6%95%B8%E6%8C%87%E4%BB%A4(%E8%BD%89%E9%8C%84)
 * [trigraphs三元符](http://blog.csdn.net/todd911/article/details/8846615)
+* [GCC参数指令介绍] http://aikosenoo.pixnet.net/blog/post/23038692-%5B%E7%AD%86%E8%A8%98%5D-gcc%E5%8F%83%E6%95%B8%E6%8C%87%E4%BB%A4(%E8%BD%89%E9%8C%84
 
 
-
-下一章: [管理X86体系的基础类](../Chapter-5/README.md/) 
+下一章: [管理X86架构的基础类](../Chapter-5/README.md/) 

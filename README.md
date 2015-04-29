@@ -48,3 +48,7 @@ You can follow me on Twitter [@SamyPesse](https://twitter.com/SamyPesse) or supp
 * 同步：原文中解决的问题和合并的PR，我们会保持跟踪并尽快同步
 
 本中文文档中任何的问题 欢迎 issue 和 pull-requests， 也欢迎大家协同翻译。
+
+分享一些相关的书籍和话题：
+* [Bran的内核开发指南_中文版](http://www.cnblogs.com/liloke/archive/2011/12/21/2296004.html)
+* [写一个操作系统内核有多难？](http://www.zhihu.com/question/22463820)
