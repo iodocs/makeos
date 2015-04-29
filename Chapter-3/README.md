@@ -2,7 +2,7 @@
 
 ### boot 是怎样工作的？
 
-当 X86 电脑开机后，经过一个复杂的阶段后，控制权将交给内核的 "main" 入口 (`kmain()`)。 在本章中，我们仅仅了解BIOS引导的方式，不关注UEFI（统一可扩展固件接口）。
+当 X86 电脑开机后，经过一个复杂的阶段后，控制权将交给内核的 "main" 入口 (`kmain()`)。 在本章中，我们仅仅了解BIOS引导的方式，不关注 [UEFI（统一可扩展固件接口)]((http://baike.baidu.com/item/UEFI)。
 
 BIOS启动的过程是：RAM detection(RAM检测) -> Hardware detection/Initialization （硬盘检测）-> Boot sequence（启动顺序）.
 
@@ -10,9 +10,11 @@ BIOS启动的过程是：RAM detection(RAM检测) -> Hardware detection/Initiali
 
 在"Boot sequence"阶段，BIOS将选择一个"boot device"（启动设备），比如floppy disk（闪存）, hard-disk（硬盘）, CD, USB flash memory device（USB设备） 或者 network（网络）。我们的操作系统将从硬盘初始化启动，当然以后也可以从CD，USB介质启动。 判断设备是否能够引导，还需校验该设备是否包含Master Boot Record (MBR：主引导记录），校验手法是判断偏移第511字节为`0x55`，第512字节为`0xAA`，这两个字节二进制表示为 0b1010101001010101，如果这两个字节不等于 `0x55AA`，则该设备不能被引导。
 
-BIOS搜寻引导设备的方式是从每个设备的引导区加载前512字节到物理内存的`0x7C00`处。 当上述的标志校验通过后，BIOS通过跳转执行`0x7C00`的引导区代码，从而交换控制权。
+BIOS搜寻引导设备的方式是从每个设备的引导区加载前512字节到物理内存的 [`0x7C00`](http://www.glamenv-septzen.net/en/view/6) 处。 当上述的标志校验通过后，BIOS通过跳转执行`0x7C00`的引导区代码，从而交换控制权。
 
 此时的CPU还是运行在16位模式（X86向后兼容的特性）。为了执行我们的32位内核，引导程序必须切换CPU到保护模式下。
+
+译者注：在对boot做精确的中文定义是比较难的，大部分翻译为引导或启动。
 
 #### GRUB是什么?
 
@@ -43,8 +45,7 @@ GRUB使用 `多启动规范`,被其加载执行的二进制执行文件应该是
 OUTPUT_FORMAT(elf32-i386)
 /* 设置输出文件的machine architecture(体系结构) */
 OUTPUT_ARCH(i386)
-/* 入口地址(entry point): 进程执行的第一条用户空间的指令在进程地址空间的地址
-  将符号_start的值设置成入口地址 */
+/* 入口地址(entry point): 进程执行的第一条用户空间的指令在进程地址空间的地址 ，将符号_start的值设置成入口地址 */
 ENTRY (_start)
 
 SECTIONS{
@@ -257,7 +258,6 @@ losetup -d /dev/loop1
 * [UEFI](http://baike.baidu.com/item/UEFI) : 统一可扩展固件接口（Unified Extensible Firmware Interface, UEFI）是一种个人电脑系统规格，用来定义操作系统与系统固件之间的软件界面，作为BIOS的替代方案[1]。可扩展固件接口负责加电自检（POST）、连系操作系统以及提供连接操作系统与硬件的接口。
 * [计算机是如何启动的？](http://www.ruanyifeng.com/blog/2013/02/booting.html)
 * [GNU GRUB](http://zh.wikipedia.org/wiki/GNU_GRUB)
-* GRUB详解 https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 * [Linux引导过程内幕](https://www.ibm.com/developerworks/cn/linux/l-linuxboot/)
 * [ELF文件格式](http://baike.baidu.com/subview/1090277/10973487.htm)
 * [UNIX/LINUX 平台可执行文件格式分析](https://www.ibm.com/developerworks/cn/linux/l-excutff/)
@@ -269,5 +269,6 @@ losetup -d /dev/loop1
 * [Booting_the_kernel](http://wiki.osdev.org/Bare_bones#Booting_the_kernel)
 * [如何用grub引导你的内核](http://module77.is-programmer.com/posts/16190.html)
 * [GNU-ld链接脚本浅析](http://blog.chinaunix.net/uid-13701930-id-336528.html)
+* GRUB详解 https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 
 下一章: [OS核心和C++运行时](../Chapter-4/README.md/) 
