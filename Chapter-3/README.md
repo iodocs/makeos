@@ -2,7 +2,7 @@
 
 ### boot 是怎样工作的？
 
-当 X86 电脑开机后，经过一个复杂的阶段后，控制权将交给内核的 "main" 入口 (`kmain()`)。 在本章中，我们仅仅了解BIOS引导的方式，不关注 [UEFI（统一可扩展固件接口)]((http://baike.baidu.com/item/UEFI)。
+当 X86 电脑开机后，经过一个复杂的阶段后，控制权将交给内核的 "main" 入口 (`kmain()`)。 在本章中，我们仅仅了解BIOS引导的方式，不关注 [UEFI (统一可扩展固件接口)](http://baike.baidu.com/item/UEFI)。
 
 BIOS启动的过程是：RAM detection(RAM检测) -> Hardware detection/Initialization （硬盘检测）-> Boot sequence（启动顺序）.
 
@@ -41,7 +41,7 @@ GRUB使用 `多启动规范`,被其加载执行的二进制执行文件应该是
 
 链接脚本主要用于规定如何把输入文件内的section放入输出文件内, 并控制输出文件内各部分在程序地址空间内的布局
 ```
-/* 定义输出文件的名字 */
+/* 定义输出文件的格式 */
 OUTPUT_FORMAT(elf32-i386)
 /* 设置输出文件的machine architecture(体系结构) */
 OUTPUT_ARCH(i386)
@@ -52,6 +52,7 @@ SECTIONS{
 	/* 据说是grub规定内核必须被加载到1M以上的内存  0x00100000为1 MiB. */
     . = 0x00100000;
 
+	/* 代码区 */
     .text :{
         *(.text)
     }
@@ -269,6 +270,8 @@ losetup -d /dev/loop1
 * [Booting_the_kernel](http://wiki.osdev.org/Bare_bones#Booting_the_kernel)
 * [如何用grub引导你的内核](http://module77.is-programmer.com/posts/16190.html)
 * [GNU-ld链接脚本浅析](http://blog.chinaunix.net/uid-13701930-id-336528.html)
+* [编译和链接那点事<上>](http://www.0xffffff.org/?p=323)
+* [编译和链接那点事<下>](http://www.0xffffff.org/?p=357)
 * GRUB详解 https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 
 下一章: [OS核心和C++运行时](../Chapter-4/README.md/) 

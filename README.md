@@ -29,7 +29,7 @@
 
 You can follow me on Twitter [@SamyPesse](https://twitter.com/SamyPesse) or support me on [Flattr](https://flattr.com/profile/samy.pesse) or [Gittip](https://www.gittip.com/SamyPesse/).
 
-你能够 Twitter 作者 [@SamyPesse](https://twitter.com/SamyPesse) 或者在 [Flattr](https://flattr.com/profile/samy.pesse)，[Gittip](https://www.gittip.com/SamyPesse/) 去支持作者。
+你能够在Twitter上关注作者 [@SamyPesse](https://twitter.com/SamyPesse) 或者在 [Flattr](https://flattr.com/profile/samy.pesse)，[Gittip](https://www.gittip.com/SamyPesse/) 去支持作者。
 
 ### 我们将构建一个怎样的操作系统？
 我们的目标是构建一个基于C++开发的类UNIX操作系统，但是我们不仅仅是做一个`POC(概念验证)`。这个操作系统应该能够启动，运行用户态SHELL并能够被扩展。
@@ -41,7 +41,7 @@ You can follow me on Twitter [@SamyPesse](https://twitter.com/SamyPesse) or supp
 
 
 ### 译者注：
-本书并不是一本正式的书籍，我们也没有把这个项目当作单纯的翻译项目，而是希望完全的中文化，适合当前国人的需求。
+本书并不是一本正式的书籍，我们也没有把这个项目当作单纯的翻译项目，而是希望完全的本土化，适合当前国人的需求。
 
 * 概念：原作者对一些概念会一带而过，在中文化时，我们会尽量提供更详尽的注解和额外的参考文章
 * 工具：文中涉及的开发环境所需的工具套件，我们将重新整合和提供，方便国内用户使用
@@ -49,6 +49,12 @@ You can follow me on Twitter [@SamyPesse](https://twitter.com/SamyPesse) or supp
 
 本中文文档中任何的问题 欢迎 issue 和 pull-requests， 也欢迎大家协同翻译。
 
+写一个完整的操作系统从来不是那么简单，但所幸我们可以关注最本质的内容。你翻阅大部分讲述内核，操作系统的书籍和文本时，都离开不内存管理
+，中断，进程管理这些要点。在本书每个章节中，我们对大多数知识点都尽量提供额外的注解或参考链接，但是否真的有必要全部去深入理解和掌握，需要读者自己权衡，我们相信里面的很多知识点都可以拓展开成为一篇新的文章，甚至是一本书。
+
 分享一些相关的书籍和话题：
+* [Roll your own toy UNIX-clone OS](http://www.jamesmolloy.co.uk/tutorial_html/)
 * [Bran的内核开发指南_中文版](http://www.cnblogs.com/liloke/archive/2011/12/21/2296004.html)
 * [写一个操作系统内核有多难？](http://www.zhihu.com/question/22463820)
+* [X86架构操作系统内核的实现](http://wiki.0xffffff.org/)
+
