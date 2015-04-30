@@ -4,11 +4,11 @@
 * [准备开发环境](Chapter-2/README.md)
 * [基于GRUB启动](Chapter-3/README.md)
 * [OS核心和C++运行时](Chapter-4/README.md)
-* [管理X86体系的基础类](Chapter-5/README.md)
-* [GDT全局描述表](Chapter-6/README.md)
-* [IDT and interrupts](Chapter-7/README.md)
-* [Memory management: physical and virtual](Chapter-8/README.md)
-* Process management and multitasking
+* [管理X86架构的基础类](Chapter-5/README.md)
+* [GDT(全局描述表)](Chapter-6/README.md)
+* [IDT(中断描述表)和中断](Chapter-7/README.md)
+* [物理内存和虚拟内存管理](Chapter-8/README.md)
+* 进程管理与多任务
 * External program execution: ELF files
 * Userland and syscalls
 * Modular drivers
