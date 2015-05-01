@@ -273,7 +273,7 @@ losetup -d /dev/loop1
 * [GNU-ld链接脚本浅析](http://blog.chinaunix.net/uid-13701930-id-336528.html)
 * [编译和链接那点事<上>](http://www.0xffffff.org/?p=323)
 * [编译和链接那点事<下>](http://www.0xffffff.org/?p=357)
-* [GRUB详解](https://wiki.archlinux.org/index.php/GRUB_\\(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+* [GRUB详解](https://wiki.archlinux.org/index.php/GRUB_\(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 * [0x7C00](http://www.glamenv-septzen.net/en/view/6)
 
 下一章: [OS核心和C++运行时](../Chapter-4/README.md/) 
