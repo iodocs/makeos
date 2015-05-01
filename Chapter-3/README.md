@@ -87,7 +87,7 @@ SECTIONS{
 }
 ```
 
-引导程序也初始化一些C++运行时，在后面的章节中将有所描述。
+引导程序也初始化一些`C++运行时`，在后面的章节中将有所描述。
 
 `Multiboot`多协议规范头结构体：
 
@@ -256,7 +256,7 @@ losetup -d /dev/loop1
 
 译者注：
 
-* [UEFI](http://baike.baidu.com/item/UEFI) : 统一可扩展固件接口（Unified Extensible Firmware Interface, UEFI）是一种个人电脑系统规格，用来定义操作系统与系统固件之间的软件界面，作为BIOS的替代方案[1]。可扩展固件接口负责加电自检（POST）、连系操作系统以及提供连接操作系统与硬件的接口。
+* [UEFI](http://baike.baidu.com/item/UEFI) : 统一可扩展固件接口（Unified Extensible Firmware Interface, UEFI）是一种个人电脑系统规格，用来定义操作系统与系统固件之间的软件界面，作为BIOS的替代方案。可扩展固件接口负责加电自检（POST）、连系操作系统以及提供连接操作系统与硬件的接口。
 * [计算机是如何启动的？](http://www.ruanyifeng.com/blog/2013/02/booting.html)
 * [GNU GRUB](http://zh.wikipedia.org/wiki/GNU_GRUB)
 * [Linux引导过程内幕](https://www.ibm.com/developerworks/cn/linux/l-linuxboot/)
@@ -272,6 +272,6 @@ losetup -d /dev/loop1
 * [GNU-ld链接脚本浅析](http://blog.chinaunix.net/uid-13701930-id-336528.html)
 * [编译和链接那点事<上>](http://www.0xffffff.org/?p=323)
 * [编译和链接那点事<下>](http://www.0xffffff.org/?p=357)
-* GRUB详解 https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+* [GRUB详解]( https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 
 下一章: [OS核心和C++运行时](../Chapter-4/README.md/) 
