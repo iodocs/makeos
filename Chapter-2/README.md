@@ -8,15 +8,15 @@
 
 Vagrant 将帮助你在当前使用的系统上创建一个干净的虚拟开发环境。下载并安装适合你当前系统的 Vagrant：
 
-[Vagrant官网] http://www.vagrantup.com
+Vagrant官网：[http://www.vagrantup.com](http://www.vagrantup.com)
 
 ### 安装 Virtualbox
 
 > Oracle VM VirtualBox 是一款开源虚拟机软件，其可以虚拟基于X86 和 AMD64/Inter64 的电脑：
 
-Vagrant 需要依赖VirtualBox来工作， 从 [VirtualBox 官网]("https://www.virtualbox.org/wiki/Downloads" "https://www.virtualbox.org/wiki/Downloads") 下载和安装适合你当前系统的安装包。
+Vagrant 需要依赖VirtualBox来工作， 从VirtualBox官网下载和安装适合你当前系统的安装包。
 
-[VirtualBox官网] https://www.virtualbox.org/wiki/Downloads
+VirtualBox官网：[https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 
 ### 启动和尝试开发环境
 
@@ -99,8 +99,8 @@ $ vagrant ssh
 我们还准备了一个安装了开发中所需软件的 [makeos box](http://pan.baidu.com/s/1nt7k7Ct)，同学可以按上面的方法导入本地的Box使用，可以减少一些初始化工作。
 
 
-参考：
-* [使用 Vagrant 打造跨平台开发环境](http://segmentfault.com/a/1190000000264347) 
+#### 参考：
+* [使用 Vagrant 打造跨平台开发环境](http://segmentfault.com/a/1190000000264347)
 * [使用Vagrant在Windows下部署开发环境](http://blog.smdcn.net/article/1308.html)
 
 下一章: [基于GRUB启动](../Chapter-3/README.md/) 

@@ -13,6 +13,7 @@
 该操作系统基于`X86`体系构建，运行在32位下，并兼容IBM的PC。
 
 **要点:**
+
 * C/C++编码
 * X86-32体系
 * 基于Grub启动
@@ -25,7 +26,7 @@
 	* DOS 分区
 	* 时钟
 	* EXT2 (只读)
-	* Bochs VBE (图像显示接口)
+	* [Bochs](http://zh.wikipedia.org/wiki/Bochs) VBE (图像显示接口)
 * 用户态
 	* Posix API
 	* Libc
@@ -33,6 +34,8 @@
 
 ## 参考资料
 * [X86架构](http://baike.baidu.com/link?url=S6VXX4KQpo9U56AQe7BM8Ku-tKobnOQh47I_MfmwD3vf4ahK0XpeB9BCsyHSZLV1S7Ct1PfQGjO09agAYVkcaq)
+* [SHELL](http://zh.wikipedia.org/zh-cn/Unix_shell)
+* [用户态](http://baike.baidu.com/view/8351895.htm)
 
 
 下一章: [准备开发环境](../Chapter-2/README.md/) 
