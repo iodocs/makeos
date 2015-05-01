@@ -149,3 +149,4 @@ void init_gdt(void)
 * [GDT(Global Descriptor Table)全局描述符表](http://www.cnblogs.com/starlitnext/archive/2013/03/07/2948929.html)
 
 下一章: [IDT(中断描述符表)和中断](../Chapter-7/README.md/) 
+
