@@ -30,7 +30,7 @@ int 	strncmp( const char* s1, const char* s2, int c );
 这些函数定义在 [string.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/string.cc), [memory.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/memory.cc), [itoa.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/itoa.cc)
 
 #### C 类型
-接下来，我们要在在代码里使用一些不同的类型，大多数是无符号类型（有符号类型将最高位储存符号，而无符号类型全都储存数字）:
+接下来，我们要在在代码里使用一些不同的类型，大多数是无符号类型（有符号类型将最高位储存符号，而无符号类型全都储存整数）:
 
 ```cpp
 typedef unsigned char 	u8;
@@ -46,7 +46,7 @@ typedef signed long long	s64;
 
 #### 编译内核
 
-编译内核和编译linux执行文件不同，我们不能使用标准库，对系统要没有任何依赖。
+编译内核和编译linux执行文件不同，Linux执行文件的执行依赖于我们的Linux系统，而我们编译出来的内核是需要独立运行的，也就是说编译的内核不能依赖于编译它的Linux(或Windows)系统，所以我们不能使用这些系统提供的标准库。
 
 该 [Makefile](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/Makefile) 
 定义了编译和链接我们内核的过程。
@@ -72,7 +72,7 @@ ASMFLAG=-f elf -o
 
 * <span id="jump_libsupc++">`libsupc++`</span> 是g++的支持库，其包含了解决[RTTI(Run-Time Type Information，通过运行时类型信息)](http://baike.baidu.com/item/RTTI)和异常处理的函数。
 * [trigraphs三元符](http://blog.csdn.net/todd911/article/details/8846615)
-* [GCC参数指令介绍] http://aikosenoo.pixnet.net/blog/post/23038692-%5B%E7%AD%86%E8%A8%98%5D-gcc%E5%8F%83%E6%95%B8%E6%8C%87%E4%BB%A4(%E8%BD%89%E9%8C%84
+* [GCC参数指令介绍](http://read.pudn.com/downloads137/doc/comm/586953/GCC%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3.pdf)
 
 
 下一章: [管理X86架构的基础类](../Chapter-5/README.md/) 
