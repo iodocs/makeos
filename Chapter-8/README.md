@@ -1,6 +1,6 @@
 ## 章节八 内存管理：物理内存与虚拟内存
 
-在与[GDT](https://github.com/iodocs/makeos/tree/master/Chapter-6)相关的章节中，我们知道分段物理内存地址使用的是段选择和计算偏移（[Linux在X86上的虚拟内存管理](http://home.cuit.edu.cn/Js/KNK/FLK/linux/linux-1.htm)）	
+在与 [GDT](../Chapter-7/README.md/) 相关的章节中，我们知道分段物理内存地址使用的是段选择和计算偏移([Linux在X86上的虚拟内存管理](http://home.cuit.edu.cn/Js/KNK/FLK/linux/linux-1.htm))
 
 在本章中，我们将实现内存的分页功能，其原理是将分段的线性地址转换成物理地址（分页表存储了虚拟（线性）地址到物理地址间的映射）。
 
@@ -47,7 +47,7 @@
 3. 线性表接下来的10位偏移量，指向一个4ko大小的页（4ko即4k）。
 4. 最后12位（0-4095），标记一个4ko页的位置。
 
-> 注：[CR3](http://oss.org.cn/kernel-book/ch02/2.1.3.htm)是页目录基址寄存器，保存页目录表的物理地址
+> 注：[CR3](http://oss.org.cn/kernel-book/ch02/2.1.3.htm) 是页目录基址寄存器，保存页目录表的物理地址
 
 ![Address translation](./paging_memory.png)
 
@@ -100,7 +100,7 @@ asm("  mov %%cr0, %%eax; \
        :: "i"(0x80000000));
 ```
 
->注：[CR0](http://oss.org.cn/kernel-book/ch02/2.1.3.htm)中包含了6个预定义标志，0位是保护允许位PE(Protedted Enable)，用于启动保护模式，如果PE位置1，则保护模式启动（分页模式），如果PE=0，则在实模式下运行。
+>注：[CR0](http://oss.org.cn/kernel-book/ch02/2.1.3.htm) 中包含了6个预定义标志，0位是保护允许位PE(Protedted Enable)，用于启动保护模式，如果PE位置1，则保护模式启动（分页模式），如果PE=0，则在实模式下运行。
 
 但是之前，我们至少需要一个页表来初始化我们的页目录，也就是说页目录中至少要有一个页表项。
 

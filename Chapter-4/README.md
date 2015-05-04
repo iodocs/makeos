@@ -72,7 +72,7 @@ ASMFLAG=-f elf -o
 
 * <span id="jump_libsupc++">`libsupc++`</span> 是g++的支持库，其包含了解决[RTTI(Run-Time Type Information，通过运行时类型信息)](http://baike.baidu.com/item/RTTI)和异常处理的函数。
 * [trigraphs三元符](http://blog.csdn.net/todd911/article/details/8846615)
-* [GCC参数指令介绍](http://read.pudn.com/downloads137/doc/comm/586953/GCC%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3.pdf)
+* [GCC参数指令介绍] http://aikosenoo.pixnet.net/blog/post/23038692-%5B%E7%AD%86%E8%A8%98%5D-gcc%E5%8F%83%E6%95%B8%E6%8C%87%E4%BB%A4(%E8%BD%89%E9%8C%84
 
 
 下一章: [管理X86架构的基础类](../Chapter-5/README.md/) 
