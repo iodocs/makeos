@@ -256,3 +256,5 @@ These macros will be used to define the interrupt segment that will prevent corr
 译者注：
 * [中断](http://zh.wikipedia.org/wiki/%E4%B8%AD%E6%96%B7)
 * [8259A中断控制器](http://218.5.241.24:8018/C35/Course/ZCYL-HB/WLKJ/jy/Chap08/8.3.4.htm)
+
+下一章: [物理内存和虚拟内存理论](../Chapter-8/README.md/) 
