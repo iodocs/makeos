@@ -1,4 +1,4 @@
-## 章节八 内存管理：物理内存与虚拟内存
+## 章节八 物理内存和虚拟内存理论
 
 在与 [GDT](../Chapter-7/README.md/) 相关的章节中，我们知道分段物理内存地址使用的是段选择和计算偏移([Linux在X86上的虚拟内存管理](http://home.cuit.edu.cn/Js/KNK/FLK/linux/linux-1.htm))
 
@@ -69,8 +69,8 @@
 * `A`: indicate if the page or table was accessed
 * `D`: (only for pages table) indicate if the page was written
 * `PS` (only for pages directory) indicate the size of pages:
-    * 0 = 4ko
-    * 1 = 4mo
+    * 0 = 4kb
+    * 1 = 4mb
 
 -------------------------------
 * `p`: 标记一个页或表是否在物理内存中
@@ -79,19 +79,19 @@
 * `A`: 标记一个页或表是否被访问过
 * `D`: (只针对页表) 标记也是否被写过
 * `PS` (只针对页目录) 标记页大小:
-    * 0 = 4ko
-    * 1 = 4mo
+    * 0 = 4kb
+    * 1 = 4mb
 
 ----------------------------------
 **注意:** 页目录与页表的地址，都要被写入20位（上图中12-31位），因为这些地址都是遵循4k对齐, 所以最后12位（0-12位）应该置0。
 
 * 一个页目录或页表使用 1024*4 = 4096 bytes = 4k
-* 一个页表可表示地址范围 1024 * 4k = 4 Mo
-* 一个页目录可表示地址范围 1024 * (1024 * 4k) = 4 Go
+* 一个页表可表示地址范围 1024 * 4k = 4 Mb
+* 一个页目录可表示地址范围 1024 * (1024 * 4k) = 4 Gb
 
 #### 怎样启动内存分页功能？
 
-启动内存分页功能，我们只需要将`CR0`寄存器的第31位置1：
+启动内存分页功能，我们只需要将 `CR0` 寄存器的第31位置1：
 
 ```asm
 asm("  mov %%cr0, %%eax; \
@@ -104,9 +104,19 @@ asm("  mov %%cr0, %%eax; \
 
 但是之前，我们至少需要一个页表来初始化我们的页目录，也就是说页目录中至少要有一个页表项。
 
+#### Identity Mapping
+
+With the identity mapping model, the page will apply only to the kernel as the first 4 MB of virtual memory coincide with the first 4 MB of physical memory:
+
+![Identity Mapping](identitymapping.png)
+
+This model is simple: the first virtual memory page coincide to the first page in physical memory, the second page coincide to the second page on physical memory and so on ...
+
 
 #### 扩展资料
   * [分页表](http://zh.wikipedia.org/wiki/%E5%88%86%E9%A0%81%E8%A1%A8)
   * [Linux在X86上的虚拟内存管理](http://home.cuit.edu.cn/Js/KNK/FLK/linux/linux-1.htm)
   * [cnblog上网友分享的内存管理笔记](http://www.cnblogs.com/felixfang/p/3420462.html)
   * [kernel-book中寄存器介绍](http://oss.org.cn/kernel-book/ch02/2.1.3.htm)
+
+下一章: [物理内存和虚拟内存管理](../Chapter-9/README.md/) 

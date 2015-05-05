@@ -7,8 +7,8 @@
 * [管理X86架构的基础类](Chapter-5/README.md)
 * [GDT(全局描述表)](Chapter-6/README.md)
 * [IDT(中断描述表)和中断](Chapter-7/README.md)
-* [物理内存和虚拟内存管理](Chapter-8/README.md)
-* 进程管理与多任务
+* [物理内存和虚拟内存理论](Chapter-8/README.md)
+* [物理内存与虚拟内存管理](Chapter-9/README.md)
 * External program execution: ELF files
 * Userland and syscalls
 * Modular drivers
