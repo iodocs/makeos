@@ -104,13 +104,13 @@ asm("  mov %%cr0, %%eax; \
 
 但是之前，我们至少需要一个页表来初始化我们的页目录，也就是说页目录中至少要有一个页表项。
 
-#### Identity Mapping
+#### 恒等映射
 
-With the identity mapping model, the page will apply only to the kernel as the first 4 MB of virtual memory coincide with the first 4 MB of physical memory:
+在恒等映射模式下的分页，头4MB的虚拟内存对应头4MB的物理内存：
 
 ![Identity Mapping](identitymapping.png)
 
-This model is simple: the first virtual memory page coincide to the first page in physical memory, the second page coincide to the second page on physical memory and so on ...
+这种模式很简单：第一个虚拟内存页对应物理内存第一页，第二个虚拟内存页对应物理内存第二页，以此类推。
 
 
 #### 扩展资料
@@ -118,5 +118,8 @@ This model is simple: the first virtual memory page coincide to the first page i
   * [Linux在X86上的虚拟内存管理](http://home.cuit.edu.cn/Js/KNK/FLK/linux/linux-1.htm)
   * [cnblog上网友分享的内存管理笔记](http://www.cnblogs.com/felixfang/p/3420462.html)
   * [kernel-book中寄存器介绍](http://oss.org.cn/kernel-book/ch02/2.1.3.htm)
+  * [MMU内存管理单元](http://zh.wikipedia.org/wiki/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%8D%95%E5%85%83)
+  * [SoC嵌入式软件架构设计之二：虚拟内存管理原理、MMU硬件设计及代码分块管理](http://www.cnblogs.com/yueqian-scut/p/4013858.html)
+  * [每个程序员都应该了解的“虚拟内存”知识](http://www.oschina.net/translate/what-every-programmer-should-know-about-virtual-memory-part3?print)
 
-下一章: [物理内存和虚拟内存管理](../Chapter-9/README.md/) 
+下一章: [物理内存和虚拟内存管理](../Chapter-9/README.md/)
