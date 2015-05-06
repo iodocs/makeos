@@ -30,7 +30,7 @@ int 	strncmp( const char* s1, const char* s2, int c );
 这些函数定义在 [string.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/string.cc), [memory.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/memory.cc), [itoa.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/runtime/itoa.cc)
 
 #### C 类型
-接下来，我们要在在代码里使用一些不同的类型，大多数是无符号类型（有符号类型将最高位储存符号，而无符号类型全都储存整数）:
+接下来，我们要在在代码里使用一些不同的类型，大多数是无符号类型（有符号类型将最高位储存符号，而无符号类型全都储存数字）:
 
 ```cpp
 typedef unsigned char 	u8;
