@@ -8,7 +8,11 @@ BIOS启动的过程是：RAM detection(RAM检测) -> Hardware detection/Initiali
 
 最重要的一步是"Boot sequence"（启动顺序）， BIOS在此阶段结束后将尝试交换控制权到下个阶段的bootloader（引导程序）。
 
-在"Boot sequence"阶段，BIOS将选择一个"boot device"（启动设备），比如floppy disk（闪存）, hard-disk（硬盘）, CD, USB flash memory device（USB设备） 或者 network（网络）。我们的操作系统将从硬盘初始化启动，当然以后也可以从CD，USB介质启动。 判断设备是否能够引导，还需校验该设备是否包含Master Boot Record (MBR：主引导记录），校验手法是判断偏移第511字节为`0x55`，第512字节为`0xAA`，这两个字节二进制表示为 `0b1010101001010101`，如果这两个字节不等于 `0x55AA`，则该设备不能被引导。
+在"Boot sequence"阶段，BIOS将选择一个"boot device"（启动设备），比如floppy disk（闪存）, hard-disk（硬盘）, CD, USB flash memory device（USB设备） 或者 network（网络）。我们的操作系统将从硬盘初始化启动，当然以后也可以从CD，USB介质启动。 判断设备是否能够引导，还需校验该设备是否包含Master Boot Record (MBR：主引导记录），校验手法是判断偏移第511字节为`0x55`，第512字节为`0xAA`，这两个字节二进制表示为 `0b1010101001010101`，如果这两个字节不等于 `0xAA55`，则该设备不能被引导。
+>注：此处使用交替位模式，来防止某些驱动器或控制器错误，任何错误引起的位篡改都将导致无法正常引导。
+>A:1010
+>5:0101
+
 
 BIOS搜寻引导设备的方式是从每个设备的引导区加载前512字节到物理内存的 [`0x7C00`](http://www.glamenv-septzen.net/en/view/6) 处。 当上述的标志校验通过后，BIOS通过跳转执行`0x7C00`的引导区代码，从而交换控制权。
 
@@ -49,7 +53,11 @@ OUTPUT_ARCH(i386)
 ENTRY (_start)
 
 SECTIONS{
-	/* 据说是grub规定内核必须被加载到1M以上的内存  0x00100000为1 MiB. */
+   /* 据说是grub规定内核必须被加载到1M以上的内存  0x00100000为1 MiB.
+	* 个人猜测：通电后，cpu开始从0地址执行命令，由于我们需要通过grub引导我们的内核启
+	* 动，所以必然要有一段指令将我们的grub加载到内存中运行，这可能就是预留前1M内存空
+	* 间的原因
+	*/
     . = 0x00100000;
 
 	/* 代码区 */
