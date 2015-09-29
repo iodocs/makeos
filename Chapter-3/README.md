@@ -10,7 +10,8 @@ BIOS启动的过程是：RAM detection(RAM检测) -> Hardware detection/Initiali
 
 在"Boot sequence"阶段，BIOS将选择一个"boot device"（启动设备），比如floppy disk（闪存）, hard-disk（硬盘）, CD, USB flash memory device（USB设备） 或者 network（网络）。我们的操作系统将从硬盘初始化启动，当然以后也可以从CD，USB介质启动。 判断设备是否能够引导，还需校验该设备是否包含Master Boot Record (MBR：主引导记录），校验手法是判断偏移第511字节为`0x55`，第512字节为`0xAA`，这两个字节二进制表示为 `0b1010101001010101`，如果这两个字节不等于 `0x55AA`，则该设备不能被引导。
 
-BIOS搜寻引导设备的方式是从每个设备的引导区加载前512字节到物理内存的 [`0x7C00`](http://www.glamenv-septzen.net/en/view/6) 处。 当上述的标志校验通过后，BIOS通过跳转执行`0x7C00`的引导区代码，从而交换控制权。
+BIOS搜寻引导设备的方式是从每个设备的引导区加载前512字节到物理内存的 [`0x7C00`](http://www.glamenv-septzen.net/en/view/6) 处。
+当上述的标志校验通过后，BIOS通过跳转执行`0x7C00`的引导区代码，从而交换控制权。
 
 此时的CPU还是运行在16位模式（X86向后兼容的特性）。为了执行我们的32位内核，引导程序必须切换CPU到保护模式下。
 
@@ -275,6 +276,7 @@ losetup -d /dev/loop1
 * [编译和链接那点事<下>](http://www.0xffffff.org/?p=357)
 * [GRUB详解][grub]
 * [0x7C00](http://www.glamenv-septzen.net/en/view/6)
+* [为什么主引导记录的内存地址是0x7C00](http://blog.jobbole.com/92115/)
 
 [grub]:https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 
