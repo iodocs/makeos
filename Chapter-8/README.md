@@ -38,14 +38,14 @@
 
 1. The processor use the registry `CR3` to know the physical address of the pages directory.
 2. The first 10 bits of the linear address represent an offset (between 0 and 1023), pointing to an entry in the pages directory. This entry contains the physical address of a pages table.
-3. the next 10 bits of the linear address represent an offset, pointing to an entry in the pages table. This entry is pointing to a 4ko page.
-4. The last 12 bits of the linear address represent an offset (between 0 and 4095), which indicates the position in the 4ko page.
+3. the next 10 bits of the linear address represent an offset, pointing to an entry in the pages table. This entry is pointing to a 4kb page.
+4. The last 12 bits of the linear address represent an offset (between 0 and 4095), which indicates the position in the 4kb page.
 
 ----------------------------
 1. 处理器从CR3寄存器中获取页目录的物理地址。（页目录中保存页面表）
 2. 线性地址的前10位代表一个偏移（0-1023），它指向页目录中的一个索引项。这个索引项包含一个页面表的物理地址。（每个活动的进程都有一个独立的页面表）
-3. 线性表接下来的10位偏移量，指向一个4ko大小的页（4ko即4k）。
-4. 最后12位（0-4095），标记一个4ko页的位置。
+3. 线性表接下来的10位偏移量，指向一个4kb大小的页（4kb即4k）。
+4. 最后12位（0-4095），标记一个4kb页的位置。
 
 > 注：[CR3](http://oss.org.cn/kernel-book/ch02/2.1.3.htm) 是页目录基址寄存器，保存页目录表的物理地址
 
@@ -104,13 +104,13 @@ asm("  mov %%cr0, %%eax; \
 
 但是之前，我们至少需要一个页表来初始化我们的页目录，也就是说页目录中至少要有一个页表项。
 
-#### Identity Mapping
+#### 恒等映射
 
-With the identity mapping model, the page will apply only to the kernel as the first 4 MB of virtual memory coincide with the first 4 MB of physical memory:
+在恒等映射模式下的分页，头4MB的虚拟内存对应头4MB的物理内存：
 
 ![Identity Mapping](identitymapping.png)
 
-This model is simple: the first virtual memory page coincide to the first page in physical memory, the second page coincide to the second page on physical memory and so on ...
+这种模式原理很简单：第一个虚拟内存页对应物理内存第一页，第二个虚拟内存页对应物理内存第二页，以此类推。
 
 
 #### 扩展资料
@@ -118,5 +118,8 @@ This model is simple: the first virtual memory page coincide to the first page i
   * [Linux在X86上的虚拟内存管理](http://home.cuit.edu.cn/Js/KNK/FLK/linux/linux-1.htm)
   * [cnblog上网友分享的内存管理笔记](http://www.cnblogs.com/felixfang/p/3420462.html)
   * [kernel-book中寄存器介绍](http://oss.org.cn/kernel-book/ch02/2.1.3.htm)
+  * [MMU内存管理单元](http://zh.wikipedia.org/wiki/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%8D%95%E5%85%83)
+  * [SoC嵌入式软件架构设计之二：虚拟内存管理原理、MMU硬件设计及代码分块管理](http://www.cnblogs.com/yueqian-scut/p/4013858.html)
+  * [每个程序员都应该了解的“虚拟内存”知识](http://www.oschina.net/translate/what-every-programmer-should-know-about-virtual-memory-part3?print)
 
-下一章: [物理内存和虚拟内存管理](../Chapter-9/README.md/) 
+下一章: [物理内存和虚拟内存管理](../Chapter-9/README.md/)

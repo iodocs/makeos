@@ -24,15 +24,19 @@
 
 The kernel space in virtual memory, which is using 1Gb of virtual memory, is common to all tasks (kernel and user).
 
-这是由指向任务页面目录的第256项到内核页面目录实现代码：
-
-This is implemented by pointing the first 256 entries of the task page directory to the kernel page directory (In [vmm.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/vmm.cc#L204)):
+这是指向内核页目录的前256项任务页目录实现代码：(In [vmm.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/vmm.cc#L204)):
 
 ```cpp
 /* 
  * Kernel Space. v_addr < USER_OFFSET are addressed by the kernel pages table
  */
+pdir = (u32 *) pd->base->v_addr;
 for (i=0; i<256; i++) 
-    pdir[i] = pd0[i];
+    pdir[i] = pd0[i];	//pd0：内核页目录
 ```
 
+#### 扩展资料
+* [IDT:中断描述表](http://oss.org.cn/kernel-book/ch03/3.1.4.htm)
+* [TSS:任务状态段-1](http://oss.org.cn/kernel-book/ch05/5.4.1.htm)
+* [TSS:任务状态段-2](http://guojing.me/linux-kernel-architecture/posts/process-switch/)
+* [Kernel Stack](http://oss.org.cn/kernel-book/ch04/4.4.1.htm)

@@ -4,7 +4,7 @@
 
 #### 输出文本到屏幕控制台
 
-我们继续使用 `VGA` 默认模式（03h) 来对用户显示一些文本。屏幕可以通过起始地址为0xB8000的Video Memory（显存)直接访问，屏幕分辨率是80*25，每个字符在屏幕上被定义为2个字节：一个是字符码，另一个是属性字节（描述了字符的表现形式，包括了字符颜色等属性）。这些意味着显存总大小为 4000B （80B * 25B * 2B）。
+我们继续使用 `VGA` 默认模式`(03h)`来对用户显示一些文本。屏幕可以通过起始地址为0xB8000的Video Memory(显存)直接访问，屏幕分辨率是80*25，每个字符在屏幕上被定义为2个字节：一个是字符码，另一个是属性字节(描述了字符的表现形式，包括了字符颜色等属性)。这些意味着显存总大小为 4000B (80B * 25B * 2B)。
 
 在`IO`类([io.cc](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System/blob/master/src/kernel/arch/x86/io.cc))中：
 * **x,y**: 定义光标的位置 
@@ -195,6 +195,6 @@ u32	Io::inl(u32 ad){
 
 译者注：
 * 地址[0xb8000]是保护模式下显存的起始地址
-
+* [VGA ：03h](http://netclass.csu.edu.cn/NCourse/hep094/homepage/Appendix/App34-11.htm)
 
 下一章: [GDT全局描述表](../Chapter-6/README.md/) 

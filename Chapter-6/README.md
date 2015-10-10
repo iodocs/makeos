@@ -10,21 +10,21 @@
 
 > 为了保留作者的原义，保留了该段原文
 
-* *"code"*: kernel code, used to stored the executable binary code
-* *"data"*: kernel data
-* *"stack"*: kernel stack, used to stored the call stack during kernel execution
-* *"ucode"*: user code, used to stored the executable binary code for user program
-* *"udata"*: user program data
-* *"ustack"*: user stack, used to stored the call stack during execution in userland
+* **"code"**: kernel code, used to stored the executable binary code
+* **"data"**: kernel data
+* **"stack"**: kernel stack, used to stored the call stack during kernel execution
+* **"ucode"**: user code, used to stored the executable binary code for user program
+* **"udata"**: user program data
+* **"ustack"**: user stack, used to stored the call stack during execution in userland
 
 > 中文解释
 
-* *"code"*: 内核代码，用来存储可执行二进制代码
-* *"data"*: 内核数据
-* *"stack"*: 内核栈，用来存储内核执行的调用栈 
-* *"ucode"*: 用户代码，用来存储用户可执行程序的二进制代码
-* *"udata"*: 用户程序数据
-* *"ustack"*: 用户栈，用来存储用户态执行的调用栈
+* **"code"**: 内核代码，用来存储可执行二进制代码
+* **"data"**: 内核数据
+* **"stack"**: 内核栈，用来存储内核执行的调用栈 
+* **"ucode"**: 用户代码，用来存储用户可执行程序的二进制代码
+* **"udata"**: 用户程序数据
+* **"ustack"**: 用户栈，用来存储用户态执行的调用栈
 
 
 #### 如何加载GDT?
